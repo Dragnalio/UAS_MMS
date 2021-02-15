@@ -15,8 +15,6 @@ class FavoritesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        favoritesTable.estimatedRowHeight = 300
-//        favoritesTable.rowHeight = UITableView.automaticDimension
         favoritesTable.delegate = self
         favoritesTable.dataSource = self
         

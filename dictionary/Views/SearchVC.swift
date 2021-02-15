@@ -22,8 +22,6 @@ class SearchVC: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Refresh", style: .plain, target: self, action: #selector(refreshButtonPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(favoritesButtonPressed))
         
-//        searchTable.estimatedRowHeight = 300
-//        searchTable.rowHeight = UITableView.automaticDimension
         searchTable.allowsSelection = false
         searchTable.delegate = self
         searchTable.dataSource = self

@@ -11,6 +11,7 @@ import CoreData
 class FavoritesVC: UIViewController {
 
     @IBOutlet weak var favoritesTable: UITableView!
+    @IBOutlet weak var notFoundTV: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,11 @@ class FavoritesVC: UIViewController {
         Manager.initCoreData(UIApplication.shared.delegate as! AppDelegate)
         coreDataLoad()
         favoritesTable.reloadData()
+        if Manager.words.count > 0{
+            toggleVisibility(true)
+        } else {
+            toggleVisibility(false)
+        }
     }
     func presentAlert(_ title: String, _ message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -32,6 +38,23 @@ class FavoritesVC: UIViewController {
         alert.addAction(close)
         
         present(alert, animated: true, completion: nil)
+    }
+    func toggleVisibility(_ resultFound: Bool){
+        if resultFound {
+            if favoritesTable != nil{
+                favoritesTable.isHidden = false
+            }
+            if notFoundTV != nil{
+                notFoundTV.isHidden = true
+            }
+        } else {
+            if favoritesTable != nil{
+                favoritesTable.isHidden = true
+            }
+            if notFoundTV != nil{
+                notFoundTV.isHidden = false
+            }
+        }
     }
     
     func coreDataLoad() {
@@ -86,6 +109,11 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
             Manager.initCoreData(UIApplication.shared.delegate as! AppDelegate)
             coreDataDelete(indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            if Manager.words.count > 0{
+                toggleVisibility(true)
+            } else {
+                toggleVisibility(false)
+            }
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

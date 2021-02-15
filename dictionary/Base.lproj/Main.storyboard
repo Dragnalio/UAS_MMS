@@ -92,8 +92,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result not found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZE-pa-QeN">
-                                <rect key="frame" x="144.5" y="437.5" width="125" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No result" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZE-pa-QeN">
+                                <rect key="frame" x="172.5" y="437.5" width="69" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -183,6 +183,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No result" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccl-NS-gV9">
+                                <rect key="frame" x="172.5" y="437.5" width="69" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ivg-xw-L2h"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -190,12 +196,15 @@
                             <constraint firstItem="q4s-sy-1Vi" firstAttribute="leading" secondItem="ivg-xw-L2h" secondAttribute="leading" id="Im3-J9-Hsc"/>
                             <constraint firstItem="ivg-xw-L2h" firstAttribute="bottom" secondItem="q4s-sy-1Vi" secondAttribute="bottom" id="MyF-ov-JCJ"/>
                             <constraint firstItem="q4s-sy-1Vi" firstAttribute="top" secondItem="ivg-xw-L2h" secondAttribute="top" id="ObJ-d4-ewL"/>
+                            <constraint firstItem="ccl-NS-gV9" firstAttribute="centerY" secondItem="aXe-1Q-BFR" secondAttribute="centerY" id="Ov9-gd-Mva"/>
                             <constraint firstItem="ivg-xw-L2h" firstAttribute="trailing" secondItem="q4s-sy-1Vi" secondAttribute="trailing" id="dZc-fO-sPj"/>
+                            <constraint firstItem="ccl-NS-gV9" firstAttribute="centerX" secondItem="aXe-1Q-BFR" secondAttribute="centerX" id="k6M-PN-qVX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="kY9-zD-tv2"/>
                     <connections>
                         <outlet property="favoritesTable" destination="q4s-sy-1Vi" id="wrP-xW-SNC"/>
+                        <outlet property="notFoundTV" destination="ccl-NS-gV9" id="eKJ-PI-EYY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t2o-R8-KrY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

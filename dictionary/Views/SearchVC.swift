@@ -72,46 +72,37 @@ class SearchVC: UIViewController {
         
         let searchURL = "\(Manager.baseURL)\(text)"
         let requestURL = URL(string: searchURL.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) ?? "")!
-        let request = NSMutableURLRequest(url: requestURL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-        request.httpMethod = "GET"
+        var request = URLRequest(url: requestURL)
         request.allHTTPHeaderFields = Manager.headers
         
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
-            (data, response, error) -> Void in
-                if (error != nil) {
+        URLSession.shared.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+                if error != nil {
                     print(error as Any)
                 } else {
                     let httpResponse = response as? HTTPURLResponse
-                    
-                    if (httpResponse?.statusCode == 404) {
+                    if httpResponse?.statusCode == 404 {
                         DispatchQueue.main.async {
                             self.presentAlert("Search Failed", "Word not found")
                             self.toggleVisibility(false)
                         }
-                    } else {
-                        do {
-                            if let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] {
-                                if let definitions = json["definitions"] as? [[String:Any]] {
-                                    for definition in definitions {
-                                        if let imgUrl = definition["image_url"] as? String, let imgData = try? Data(contentsOf: URL(string: imgUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) ?? "")!){
-                                            Manager.definitions.append(Definition(definition["type"]! as! String, definition["definition"]! as! String, imgData))
-                                        } else {
-                                            Manager.definitions.append(Definition(definition["type"]! as! String, definition["definition"]! as! String, nil))
-                                        }
-                                    }
-                                }
-                                DispatchQueue.main.async {
-                                    self.reloadTableView()
+                    } else if let json = try! JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] {
+                        if let definitions = json["definitions"] as? [[String:Any]] {
+                            for definition in definitions {
+                                if let imgUrl = definition["image_url"] as? String, let imgData = try? Data(contentsOf: URL(string: imgUrl.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) ?? "")!){
+                                    Manager.definitions.append(Definition(definition["type"]! as? String ?? "", definition["definition"]! as? String ?? "", imgData))
+                                } else {
+                                    Manager.definitions.append(Definition(definition["type"]! as? String ?? "", definition["definition"]! as? String ?? "", nil))
                                 }
                             }
-                        } catch let error as NSError {
-                            print("Failed to load: \(error)")
+                        }
+                        DispatchQueue.main.async {
+                            self.reloadTableView()
                         }
                     }
                 }
             }
-        )
-        task.resume()
+        ).resume()
     }
 
     @IBAction func searchButtonPressed(_ sender: Any) {
@@ -138,6 +129,11 @@ class SearchVC: UIViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
         let addedWord = Word(word, Manager.definitions)
         coreDataAdd(addedWord)
+    }
+    
+    @IBAction func unwindToA(_ unwindSegue: UIStoryboardSegue) {
+        let sourceViewController = unwindSegue.source
+        // Use data from the view controller which initiated the unwind segue
     }
     
     func coreDataAdd(_ word: Word) {

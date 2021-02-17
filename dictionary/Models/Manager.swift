@@ -19,7 +19,7 @@ class Manager{
     static let token = "Token b3571aa0c91b5765725ed4ca284f09ffa99e30f1"
     static let headers = [
         "content-type": "application/json",
-        "authorization": token
+        "Authorization": token
     ]
     
     // CoreData

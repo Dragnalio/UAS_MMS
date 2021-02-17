@@ -131,11 +131,6 @@ class SearchVC: UIViewController {
         coreDataAdd(addedWord)
     }
     
-    @IBAction func unwindToA(_ unwindSegue: UIStoryboardSegue) {
-        let sourceViewController = unwindSegue.source
-        // Use data from the view controller which initiated the unwind segue
-    }
-    
     func coreDataAdd(_ word: Word) {
         // Insert data
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext

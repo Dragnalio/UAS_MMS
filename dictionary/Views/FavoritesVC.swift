@@ -80,9 +80,9 @@ class FavoritesVC: UIViewController {
             print("Failed to load data")
         }
         
-        for news in result {
-            if news.value(forKeyPath: "word") as? String == Manager.words[index].value(forKeyPath: "word") as? String {
-                context.delete(news)
+        for item in result {
+            if item.value(forKeyPath: "word") as? String == Manager.words[index].value(forKeyPath: "word") as? String {
+                context.delete(item)
                 Manager.words.remove(at: index)
                 break
             }
